@@ -26,11 +26,11 @@ namespace Vidly.Controllers
         // GET: Movies
         public ActionResult Random()
         {
-            var movie = new Movie() { Name = "Iron Man!!!!!" };
+            var movie = new Movie() { Name="Iron Man!!!!!" };
             return View(movie);
         }
 
-        public ActionResult Index()
+        public ActionResult Index ()
         {
             var movie = _context.Movies.Include(m => m.Genre).ToList();
             return View(movie);
@@ -49,15 +49,27 @@ namespace Vidly.Controllers
 
             var viewModel = new MovieFormViewModel
             {
+                Movie = new Movie(),
                 Genres = genretypes
             };
-            return View("Create", viewModel);
+            return View("Create",viewModel);
         }
-
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
-            if (movie.Id == 0)
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel
+                {
+                    Movie = movie,
+                    Genres = _context.Genres.ToList()
+                };
+                return View("create", viewModel);
+            }
+
+            if(movie.Id==0)
                 _context.Movies.Add(movie);
             else
             {
@@ -83,6 +95,6 @@ namespace Vidly.Controllers
                 Genres = _context.Genres.ToList()
             };
             return View("Create", viewModel);
-        }
+        }   
     }
 }

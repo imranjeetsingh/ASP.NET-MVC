@@ -18,12 +18,12 @@ namespace Vidly.Models
         public bool IsSubscribedToNewsLetter { get; set; }
 
         [Display(Name="Date Of Birth")]
+        [MemberAgeValidation]
         public DateTime? Birthdate { get; set; }
 
         public MembershipType MembershipType { get; set; }
 
         public byte MembershipTypeId { get; set; }
-
 
     }
 }

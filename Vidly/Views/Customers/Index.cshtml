@@ -5,25 +5,24 @@
 }
 
 <h1>Customers</h1>
-@Html.ActionLink("Add Customer", "New", "Customers", null, new { @class = "btn btn-primary" })
-
-<table class="table table-bordered table-hover ">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Discount</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var customer in Model)
-        {
+<p>@Html.ActionLink("Add customer","new","customers",null,new { @class="btn btn-primary"})</p>
+    <table class="table table-bordered table-hover ">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
             <tr>
                 @*<td><a href="details/@customer.Id">@customer.Name</a></td>*@
                 @*<td>@Html.ActionLink(customer.Name,"Details","Customers",new { id = customer.Id },null)</td>*@
                 <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
                 <td>@customer.MembershipType.DiscountRate</td>
             </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
 
